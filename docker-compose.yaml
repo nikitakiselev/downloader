@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  webapp:
+    image: webdevops/php-nginx:8.2-alpine
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+    volumes:
+      - "./:/app"
+    ports:
+      - "8000:80"
+    depends_on:
+      - redis
+      - queue
+
+  queue:
+    build:
+      context: .
+      dockerfile: deployment/images/app.dockerfile
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+    volumes:
+      - "./:/app"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7.2-alpine

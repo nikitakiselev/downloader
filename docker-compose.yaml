@@ -15,7 +15,7 @@ services:
   queue:
     build:
       context: .
-      dockerfile: deployment/images/app.dockerfile
+      dockerfile: deployment/images/queue.dockerfile
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
     volumes:
